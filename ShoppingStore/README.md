@@ -37,5 +37,21 @@
 
 ### Add a navigation bar header
 
-* header.component.html file, use the following code
+* header.component.html file, use the code in header.component.html
 
+### Add a model for recipe
+
+* Go to recipe-list.component.ts and add an empty array `recipe = [];`
+* Then create a model for recipe. Create a file recipe.model.ts in the recipe folder.
+* export class Recipe from that file. It will set how all recipe should look like.
+* Class can be instantiated so we can create new objects based on that class.
+* public is used so that it can be used from outside of the class.
+* A constructor is a function which will run once the object is created.
+
+### Add content to the Recipes components
+
+* Go to recipe-list.component.ts and  define type for recipes as Recipe[] from the model we just created. Also import the Recipe from the model file recipe.model.ts
+* Then add some content to the array, fill one dummy recipe
+* A new recipe is made by creatin a new object using the class. new Recipe(name,desc,url), the constructor wil return us the object.
+* To see this, we must change the template of the recipe-list i.e recipe-list.component.html
+* 
