@@ -54,4 +54,27 @@
 * Then add some content to the array, fill one dummy recipe
 * A new recipe is made by creatin a new object using the class. new Recipe(name,desc,url), the constructor wil return us the object.
 * To see this, we must change the template of the recipe-list i.e recipe-list.component.html
-* 
+
+### Easier way to make models. Here are two codes which do the same:->
+
+* Usual code: 
+```js
+ export class Recipe {
+   public name: string;
+   public description: string;
+   public imagePath: string;
+
+   constructor(name: string, desc: string, imagePath: string) {
+     this.name = name;
+     this.description = desc;
+     this.imagePath = imagePath;
+   }
+ }
+```
+* Code that we should use: 
+```js
+export class Recipe {
+  constructor(public name: string, public description: string, public imagePath: string){}
+}
+
+```
