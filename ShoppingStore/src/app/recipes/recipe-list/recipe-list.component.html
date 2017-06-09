@@ -1,17 +1,19 @@
+<br>
 <div class="row">
   <div class="col-12">
     <button type="button" class="btn btn-outline-primary">New Recipe</button>
   </div>
 </div>
+<br>
 <div class="row">
   <div class="col-12">
-    <a href="#" class="list-group-item">
-      <div class="flex-row">
-        <h4 class="mb-1">Recipe Name</h4>
-        <p class="mb-1">Description</p>
+    <a href="#" class="list-group-item justify-content-between" *ngFor="let recipe of recipes">
+      <div>
+        <h4 class="mb-1">{{recipe.name}}</h4>
+        <p class="mb-1">{{recipe.description}}</p>
       </div>
-      <span class="float-right">
-        <img src="" alt="" class="img-fluid" style="max-height: 50px;">
+      <span>
+        <img src="{{recipe.imagePath}}" alt="" class="img-fluid" style="max-height: 50px">
       </span>
     </a>
     <app-recipe-item></app-recipe-item>
