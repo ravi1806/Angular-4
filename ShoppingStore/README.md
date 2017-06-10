@@ -83,11 +83,15 @@ export class Recipe {
 
 * For example,  we have two comp. cockpit and server-element. In server-element.ts we have a property element: {name: string, content: string}; Notice this is all just type declaration in Ts(its on the left side of assignment). This property we will use in server-element.html. One directory up, in app, in  file app.component.ts we have a property serverElements = [{name: 'server1', content: 'cool test' }]; . To access element property of server-element.ts into app.component.html we need to use inside the `<app-server-element></app-server-element>` tags as [element] = serverElement. Notice here, serverElement is just one element of serverElements which is an array, its just an ngFor variable. So this way we can store the serverElement in element property of server-element.ts one by one using ngFor. Also, we need to use decorator @Input() in front of element in server-element in which inside parenthesis we can give it an alias. Input needs to be imported from the @angular/core.
 
-*Binding to Custom Events*
+**Binding to Custom Events**
 
 In app.component.ts we have the array serverElements which keeps all the added, pre existing servers. We have two methods inside the component which get triggered on button clicks. These two methods add(push) the new object into the array serverElements. In the app.component.html file, we have `<app-cockpit></app-cockpit>` inside which we need to bind our event like `<app-cockpit (ourCustomEvent) = "methodOnCustomEvent($event)" ></app-cockpit>` . So, in the cockpit.component.ts we have to make a new property ourCustomEvent. To make it an event, assign it ` ourCustomEvent = new EventEmitter<{serverName: string, serverContent: string}>();` wherein we have defined what type of data the event will emit. EventEmitter needs to be imported from @angular/core. In the method, call this event using .emit(this.serverName, this.serverContent) method. Use @Output decorator. 
 
 To apply CSS from app.component.css we need to write encapsulation: ViewEncapsulation.None in @Component({ })
+
+** Getting Access to templates using ViewChild **
+* In the ts file, import ViewChild from the @angular/core. Then use a decorator @ViewChild in front of a variable in which u want to catch the html DOM element ref. This ViewChild will take an arguement, it needs to be the reference on the html page using # or could also be a component(its first occurence will be taken). The example of a reference on the html page 
+`@ViewChild('localreference') variablenName: ElementRef;`. We can then use it in the methods below as serverContent = this.variableName.nativElement.value. We should never change the value of the DOM using this ViewChild. 
 
 
 
