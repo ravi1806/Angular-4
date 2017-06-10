@@ -66,5 +66,8 @@ The * in deirective tells that it is goin to change the structure of the html DO
     [ngClass] = {classname: condition}
  ```
  
- 
+### Local reference `#`
+
+* Instead of using two way data binding, we may use local referecne #. This takes/selects the entire html element. eg. `<input type='text' class='form-control' #localreferenceName />` and use it in some other place in the same html file as `(click) = methodOnClick(localreferenceName)`. This will transfer the eniter dom element to the typescript file where in u can manupulate the dom element data. To work with this dom element in the ts file, we must recieve this local reference as `methodOnClick(localref: HTMLInputElement){ somevar = localref.value }`
+
     
