@@ -128,3 +128,18 @@ The [reference](https://angular.io/docs/ts/latest/guide/lifecycle-hooks.html) pa
 * Now we create a property in the app.component.ts file which will hold some string eg. `page='recipe'`
 * Then we define someMethod here which sets the variable page with the string that the event fired from the button.
 * Now use this variable in the *ngIf clause to display or hide the content of the page and change the page.
+
+
+### Displaying data on clicks.
+
+* We bound an event on the recipe-item anchor tag in recipe-item.component.html. we then directed it to a method recipeClicked.
+* In the recipe-item.component.ts file, we defined recipeClicked wherein we emitted an Event recipenoDetail transmitting nothing because we already have recipe data where we have just transferred it.
+* In the recpe-comp.html file, we use this event and put a method recipeDetail to it which takes the existing recipeEl and sends it to the recp.comp.ts file, where we create a new event recipeEvent and we emit it inside the method recipeDetail sending the recipe details.
+* We then create a property inside the recipe.component.ts file. Then in the recipe.component.html we assisn it selectedRecipe via the event recipeEvent.
+* Also, we assign in the ng-if in app-recipe-details tags. Then bind it by using a property recipe in the component to selectedRecipe and changes the values in the html file of recipe-list-details.html
+
+### Making the ADD button functional on shopping list
+
+* Add a click event on Add button with addMethod defined in its ts file wherein we define another Event (secondEvent) and emit the ingrendeint through it. We first create the ingredient though. We recieve the secondEvent with the ingredient in the shoppinglist component wherein we take the $event which is actually (ingredient) into the ts file and then push it to the ingredients array.
+
+
