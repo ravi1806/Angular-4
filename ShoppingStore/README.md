@@ -137,3 +137,9 @@ The [reference](https://angular.io/docs/ts/latest/guide/lifecycle-hooks.html) pa
 * In the recpe-comp.html file, we use this event and put a method recipeDetail to it which takes the existing recipeEl and sends it to the recp.comp.ts file, where we create a new event recipeEvent and we emit it inside the method recipeDetail sending the recipe details.
 * We then create a property inside the recipe.component.ts file. Then in the recipe.component.html we assisn it selectedRecipe via the event recipeEvent.
 * Also, we assign in the ng-if in app-recipe-details tags. Then bind it by using a property recipe in the component to selectedRecipe and changes the values in the html file of recipe-list-details.html
+
+### Making the ADD button functional on shopping list
+
+* Add a click event on Add button with addMethod defined in its ts file wherein we define another Event (secondEvent) and emit the ingrendeint through it. We first create the ingredient though. We recieve the secondEvent with the ingredient in the shoppinglist component wherein we take the $event which is actually (ingredient) into the ts file and then push it to the ingredients array.
+
+
