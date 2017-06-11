@@ -15,7 +15,7 @@ export class RecipeListComponent implements OnInit {
       'http://www.seriouseats.com/images/2015/09/20150914-pressure-cooker-recipes-roundup-09.jpg'),
     new Recipe('Old Recipe',
       'This is an old recipe desc',
-      'http://www.seriouseats.com/images/2015/09/20150914-pressure-cooker-recipes-roundup-09.jpg')
+      'http://media3.sailusfood.com/wp-content/uploads/2016/02/mushroom-manchurian-recipe.jpg')
   ];
   recipeDetail(recipeEl: Recipe) {
     this.recipeEvent.emit(recipeEl);
