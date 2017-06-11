@@ -93,5 +93,38 @@ To apply CSS from app.component.css we need to write encapsulation: ViewEncapsul
 * In the ts file, import ViewChild from the @angular/core. Then use a decorator @ViewChild in front of a variable in which u want to catch the html DOM element ref. This ViewChild will take an arguement, it needs to be the reference on the html page using # or could also be a component(its first occurence will be taken). The example of a reference on the html page 
 `@ViewChild('localreference') variablenName: ElementRef;`. We can then use it in the methods below as serverContent = this.variableName.nativElement.value. We should never change the value of the DOM using this ViewChild. 
 
+**ng-content directive**
+
+* If we have some html in server.component.html file and if we want to cut it to app.component.html containing the directive <app-server></app-server> and if we try and paste that html inside the tags of <app-server> it wont render anything. We must write <ng-content></ng-content> tags inside the server.component.html file where we cut the data to be pasted inside app.component.html file.
+
+* @ContentChild is used just like @ViewChild. For eg. we have a local reference in the ng-content html content in app.componentn.html, then to use the reference inside server.component.ts we must use it in the server.component.ts.
+
+### Component lifecycle
 
 
+* ngOnChanges Called after a bound input property changes.
+* ngOnInit Called once the component is initialised. Runs after the constructor.
+* ngDoCheck Called during every change detection run.(not necessarily only when somethin changes, like if u click on a button and nothing happnes but still its an event so this function will run)
+* ngAfterContentInit Called after content(ng-content) has been projected into the view. 
+* ngAfterContentChecked Called everytime the projected content has been checked.
+* ngAfterViewInit Called after the components view and childs view has been initialised
+* ngAfterViewChecked Called everytime the views has been checked.
+* ngOnDestroy Called once the component is about to be destroyed(eg. ngIf turns to false) 
+
+* constructor runs before ngOnIt.
+* The values from DOM can be taken out from ngViewInit and not ngOnIt cos the values can be taken out of DOM elements only after they are rendered.
+
+The [reference](https://angular.io/docs/ts/latest/guide/lifecycle-hooks.html) page
+
+
+### To change pages without usin routing
+
+* We change pages by clicks on anchor tags in headings, recipes n shopping list in the header.component.html file.
+* We use the click event. Provide the click event methods in which we transfer the string `recipe` or `shopping-list`.
+* We recieve this method in header.component.ts and here we need to create an event to transfer this string data.
+* So we create a new customEvent with `new Emitter<string>();`. Also use @outpout and import it from @angular/core.
+* Now inside the click method we emit this new Event with the string data that was recieved through the method.
+* Now we listen on this event in the app.component.html file within `<app-header (customEvent)=someMethod($event)></app-header>`. Here the method wil get the data which the event CustomEvnet emitted. i.e. string(recipe or shopping-list).
+* Now we create a property in the app.component.ts file which will hold some string eg. `page='recipe'`
+* Then we define someMethod here which sets the variable page with the string that the event fired from the button.
+* Now use this variable in the *ngIf clause to display or hide the content of the page and change the page.
