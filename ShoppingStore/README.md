@@ -57,7 +57,7 @@
 
 ### Easier way to make models. Here are two codes which do the same:->
 
-* Usual code: 
+* Usual Code 
 ```js
  export class Recipe {
    public name: string;
@@ -145,6 +145,8 @@ The [reference](https://angular.io/docs/ts/latest/guide/lifecycle-hooks.html) pa
 
 ### Custom Directive 
 
+* The following example is just for demo purpose, dom shouldn't be used this way. As angular can render elements without the DOM and at that moment these elements may not be available. The better method is to use Renderer.
+
 ```js
   import {Directive,onInit,ElementRef} from @angular/core
   @Directive({
@@ -156,8 +158,9 @@ The [reference](https://angular.io/docs/ts/latest/guide/lifecycle-hooks.html) pa
     }
   }
  ```
- 
- Use it in the html file as ->
+Also, add in the @ngModules and its path in the app.module.ts file.
+
+* Use it in the html file as ->
  
  ```js
  <p appBasicHighlight>Style me with the basic highlighter</p>
