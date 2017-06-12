@@ -201,3 +201,11 @@ Also, add in the @ngModules and its path in the app.module.ts file.
  <p *ngSwitchDefault>Value is default</p>
  </div>
  ```
+
+### Creating a dropdownDirective in the project.
+
+* Create a directive file called dropdown.directive.ts and add it to ngModules components and the import. Then in the dropdown.directive file build a new directive. (directives can be build by cli too using `ng g d directivename`
+* Then take a property which will toggle between true and false give it an initial value false, after that use @Hostlistener on click event and direct it to a method which will toggle the value of the property.
+* Then make that toggleable property @HostBinding on class.show as we need to use the class show on those div elements to make them show all that dropdown data. 
+* Add the directive in those divs in the html files. 
+
