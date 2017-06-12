@@ -192,4 +192,12 @@ Also, add in the @ngModules and its path in the app.module.ts file.
  }  
  
  ```
- 
+ ### ngSwitch
+ ```js
+ <div [ngSwitch]="value">
+ <p *ngSwitchCase = "5">Value is 5</p>
+ <p *ngSwitchCase = "10">Value is 10</p>
+ <p *ngSwitchCase = "20">Value is 20</p>
+ <p *ngSwitchDefault>Value is default</p>
+ </div>
+ ```
