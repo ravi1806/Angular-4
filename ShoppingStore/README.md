@@ -165,5 +165,31 @@ Also, add in the @ngModules and its path in the app.module.ts file.
  ```js
  <p appBasicHighlight>Style me with the basic highlighter</p>
  ```
+ ### Building a structural directive
  
+ * Create a new directive using the cli -> `ng g d directiveName`. Below is the directive code: 
+ 
+ ```js
+ export class UnlessDirective {
+  //we use setter using set keyword cos we want to monitor the changes on unless property, so whenver it changes this method runs
+  //Make sure appUnless(the property name) is always same as the directive selector else it wont work.
+  
+  @Input set appUnless(condition: boolean) {
+    if (!condition){
+    //whenver the condition changes, create a view in the viewContainer pass as parameter what we want to render.
+    this.vcRef.createEmbeddedView(this.templateRef);
+    } else {
+    this.vcRef.clear(); //else clear the vcRef
+    }
+  }
+  
+  //inject the template just like eleRef with ElementRef we did earlier. TemplateRef is of generic type(any).
+  //The second parameter is the viewContainer that is where the template will be rendered
+  
+  constructor(private templateRef: TemplateRef<any>,private vcRef: ViewContainerRef){
+    
+  }
+ }  
+ 
+ ```
  
