@@ -143,3 +143,24 @@ The [reference](https://angular.io/docs/ts/latest/guide/lifecycle-hooks.html) pa
 * Add a click event on Add button with addMethod defined in its ts file wherein we define another Event (secondEvent) and emit the ingrendeint through it. We first create the ingredient though. We recieve the secondEvent with the ingredient in the shoppinglist component wherein we take the $event which is actually (ingredient) into the ts file and then push it to the ingredients array.
 
 
+### Custom Directive 
+
+```js
+  import {Directive,onInit,ElementRef} from @angular/core
+  @Directive({
+  selector: '[appBasicHighlight]'
+  })
+  export class BasicHighlightDirective implements onInit {
+    constructor(private element: ElementRef) {
+      this.element.nativeElement.style.backgroundColor = 'green';
+    }
+  }
+ ```
+ 
+ Use it in the html file as ->
+ 
+ ```js
+ <p appBasicHighlight>Style me with the basic highlighter</p>
+ ```
+ 
+ 
