@@ -209,3 +209,14 @@ Also, add in the @ngModules and its path in the app.module.ts file.
 * Then make that toggleable property @HostBinding on class.show as we need to use the class show on those div elements to make them show all that dropdown data. 
 * Add the directive in those divs in the html files. 
 
+### Creating a service
+
+* Create a file logging.service.ts and inside it write the following code
+* ```js
+    export class loggingService {
+      //code here
+    }
+  ```
+ * Import this in the ts file that you want to use.
+ 
+ 
