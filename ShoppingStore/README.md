@@ -218,5 +218,17 @@ Also, add in the @ngModules and its path in the app.module.ts file.
     }
   ```
  * Import this in the ts file that you want to use.
- 
- 
+ * To use service, we use Angular Dependency Injector. A dependency is something that a class of ours will depend upon. Dependency injectors simple injects an instance of this class of service into our component. All we need to do is to inform angular that we require such an instance. 
+ * Call the service inside the constructor parameter of the component and define its type of service. Also, import that service from the file. Now angular knows what we want but it still doesn't know how to provide us that instance, so we use providers.Add a property to the @Component as providers and inside the array on the left side insert the servicename. 
+ * Now we can use this service inside this component. This instance was created by angular and not manually, one of the reasons its better because angular knows how your project works. 
+ * We can use this service across components.
+ * To store and manage data we use services too. 
+ * Most initialisation must in be done OnInit and not in the constructor.
+ * Angular dependeny injector is a hierarchical injector. If we provide a service in some component, the anuglar knows how to create an instance and for all its child components. The highest possible level is app module. Where to include providers? 
+    * AppModule : Same service is available app-wide.
+    * AppComponent:  Same instance of service is avaialable for all components(but not for other services).
+    * Any other component: Same instance of service is available for the component and all its child components. This will overwrite the service provided at an upper level causing some bugs in the code.
+
+**Injecting** Services into services
+
+* Add @Injectable() to the service in which u want to inject another service.
