@@ -255,4 +255,10 @@ Also, add in the @ngModules and its path in the app.module.ts file.
 
 * **Summary of Above steps**: In the recipe-item.component.html we have click event , so when recipeClicked method is fetched, we emit an event with the recipe data(which it gets from the recipe-list.component.html as property binding within <recipe-item> tags.) which is defined in the recipeservice. This event we subscribe(listen) to in the recipe.component.ts file and as soon as we get a change there we change the selectedRecipe to the recipe.
 
+* Create a shoppinglist service and add the ingredients here, make it private and create a method to send a copy of the array outside.
+* Add to the providers in app.module.ts because we intend to inject in the recipeServices later.
+* We need to watch the changes on the ingredients array as we are passing a copy of it and not the original array itself. So we need to update the copy as soon as the real array is changed(ingredient added). To do that we add an event and listen to it for whenver the data is pushed in the ingredient array.
 
+#### Passing ingredients from recipe to shopping list via service and spread operator
+
+* Add a click event in recipe.component.html file and the method onAddList will be defined in its ts file. We need to get the recipe service here which will inturn access the shopping list service. Then add a method to the recipe.service file addIngredientsTosList wherein we receive the ingredients. Now go over to the onAddList and call this method addIngredientsTosList with recipe data of recipe-detail.component into it.
