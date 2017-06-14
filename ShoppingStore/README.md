@@ -232,3 +232,27 @@ Also, add in the @ngModules and its path in the app.module.ts file.
 **Injecting** Services into services
 
 * Add @Injectable() to the service in which u want to inject another service.
+
+
+#### Creating a service in the shoppingStore app.
+
+* Create files recipe.service.ts and shopping-list.service.ts files.
+* Create services using export class.
+* Cut the recipe data from recipe-list.components and paste it into the service.
+* Make the recipe private and send it outside via a method, also send a copy outside as objects are referred by address and if changed outside it will be changed inside too. So use slice method to send a copy.
+* Add providers in the recipe.component.ts file and add import too.
+* Call this service in the recipe-list.components.ts file by calling the service inside a constructor as  private recipeService: RecipeService
+* In the ngOnInit assign this services method which will give the copy of the recipe array to this null array defined in the current file.
+* Remove the output and evenEmitters from the imports and code from the file of recipe-item.component.ts
+* In the recipe.service.ts file, create an event recipeSelected which will emit the recipe data.
+* Import the recipeService service in the recipe-item.component file.
+* Emit the recipeSelected event inside the recipeSelected method inside this file and emit the recipe data of this RecipeItemComponent file.
+* Go to recipe-list.component.html and remove the events and listeners.
+* Delete recipeSelected method and our own EventEmitter from recipe-list.component.ts
+* Setup the listener for the newly created event recipeSelected in the recipes.component.ts file in ngOnInit method.
+* Inside the listener we will get recipe data if anything changes, assign this recipe data to the selectedRecipe.
+
+
+* **Summary of Above steps**: In the recipe-item.component.html we have click event , so when recipeClicked method is fetched, we emit an event with the recipe data(which it gets from the recipe-list.component.html as property binding within <recipe-item> tags.) which is defined in the recipeservice. This event we subscribe(listen) to in the recipe.component.ts file and as soon as we get a change there we change the selectedRecipe to the recipe.
+
+
