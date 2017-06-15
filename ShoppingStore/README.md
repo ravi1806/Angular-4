@@ -262,3 +262,14 @@ Also, add in the @ngModules and its path in the app.module.ts file.
 #### Passing ingredients from recipe to shopping list via service and spread operator
 
 * Add a click event in recipe.component.html file and the method onAddList will be defined in its ts file. We need to get the recipe service here which will inturn access the shopping list service. Then add a method to the recipe.service file addIngredientsTosList wherein we receive the ingredients. Now go over to the onAddList and call this method addIngredientsTosList with recipe data of recipe-detail.component into it.
+
+### Routing
+
+* Congifgure the routing in the app.module.ts file.
+* Define a `const appRoutes: Routes = [{path: 'pageName', component: 'ComponentName'}];` whose type should be Routes. Routes need to be imported from @angular/router. This appRoutes should hold an array of our different routes. Make sure not to add a / infront of the pagename. Create an empty path for homepage. 
+* We now need to register this routes in our app. To do that, in the app.module.ts file, insdie the imports array add RouterModule and it should be imported from the @angular/router too along with Router. Call forRoot() method on RouterModule to register some routes for our main application. Send our appRoutes as a parameter in forRoot() in the imports array. To render your pages, use <router-outlet> directive instead of the selectors. The currently selected route will be rendered here.
+* In the html pages, if we use href, it will refresh the page everytime which we dont want. So to get our routes working we actually need to use routerLink instead of href. eg. `<a routerLink="/">Home</a>`. Another way of using routerLink is by using property binding. `<a [routerLink] = " '/pageAsString ' ">Home</a>` or `<a [routerLink] = "['/pageAsString']">Home</a>`
+* Now the pages wont reload because routerLink catches the click and prevents the default(sending a request) and analyses our path and checks if it finds a fitting route in our configuration.
+* In the routerLink if we specify the pageName without a `/` that would still work as we are passing a relative path. But if we want to nest a path after it we can use relative path otherwise as long as you want to attach the path to the root domain we must use absolute path. Absolute path = `/users`. Relative path = `users` or `../users` This will append this to the already existing path in the url. So for nesting paths we can use relative paths. 
+* To style the selected link with active class we **don't use** `class = 'active'`. Instead we **use** `routerLinkActive = "className"`. Also, use `[routerLinkActiveOptions] = "{exact: true}"` where we property bind because we pass in a dynamic object. exact is a predefined property of this routerLinkActive directive. 
+* 
