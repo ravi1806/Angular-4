@@ -339,3 +339,24 @@ In the routing config file, add this property canDeactivate: [canDeactivateGuard
   }
 ```
 
+#### Routing in shopping store
+
+* Create a file app-routing.ts and use the following code: 
+
+```js
+import {NgModule} from '@angular/core';
+import {RouterModule, Routes} from '@angular/router';
+import {RecipesComponent} from './recipes/recipes.component';
+import {ShoppingListComponent} from './shopping-list/shopping-list.component';
+const appRoutes: Routes = [
+  {path: 'recipes', component: RecipesComponent},
+  {path: 'shopping-list', component: ShoppingListComponent},
+  {path: '', redirectTo: '/recipes', pathMatch: 'full'} //pathMatch is reqd because an empty path is part of every route. So that it doesnt match to others we need to use pathMatch to full, so it will ONLY redirect when the FULL path is empty.
+];
+@NgModule({
+  imports: [RouterModule.forRoot(appRoutes)], 
+  exports: [RouterModule]
+})
+export class AppRoutingModule{}
+
+```
