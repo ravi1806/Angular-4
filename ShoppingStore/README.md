@@ -321,3 +321,21 @@ export class CanDeactivateGuard implements CanDeactivate<CanComponentDeactivate>
 }
 In the routing config file, add this property canDeactivate: [canDeactivateGuard] then provide it in the app.module.ts file
 ```
+
+* Passing static data to a route:- Add a property `data: {message: "Page Not Found"}` to the routing configuration. Then fethc it inside the component.ts file through route: ActivatedRoute  in two ways, using observable and without using observable. Without using observable-> `this.route.snapshot.data['message']` , using observable `this.route.data.subscribe((data: Data)=>{this.errorMessage = data['Message']})`
+
+* Resolving dynamic data:- Maka resolver serice
+```js
+  import {Resolve} from '@angular/router';
+  interface Server {
+    id: number,
+    name: string,
+    status: string
+  }
+  export class ServerResolver implements Resolve<{id: number, name: string, status: string}> {
+   resolve(route:ActivatedRouteSnapshot, status: RouterStateSnapshot): Observable<Server> | Promise<Server> | Server {
+   
+   }
+  }
+```
+
