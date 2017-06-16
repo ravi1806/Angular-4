@@ -279,4 +279,45 @@ Also, add in the @ngModules and its path in the app.module.ts file.
 * We load our data(user inside ngOnInit) by using the snapshot on route. if we load a new route, angular looks at app.module then finds the fitting route, loads the component, initialises the component and gives the data by accessing the snapshot method. That only happens if we havent been on this component before. But if we are already on the component, it wont re render the component. So this method wont change the data if the url is changed by a routerLink on the same page. eg.`<a [routerLink]="[{'/users',10,'Anna'}]"></a>` in the html file, this will change the url but not the user.name and user.id. because Angle wont re render the component. To change the data, we need to use an observable. We write the code for this observable outside our ngOnInit in the component. There we subscribe to the params observable which is available on the route. params on snapshot wasn't an observable. This one on route is an observable and it will fire whenver the route is changed(url is changed). eg. `this.route.params.subscribe((params: Params)=>{this.user.id=params['id']; this.user.name = params['name']);`where Params type is imported from @angular/routes
 * Subscriptions remain in the memory once the component is destroyed. So its necessary to manually unsubscribe them. In this case, angular does it for us, but for other or custom observables, we need to manually unsubscribe. For that, we need to import Subscription from 'rjxs/Subscription'. Then define paramSubscription: Subscription; type. Then assign it the 
 `this.route.params.subscribe((params: Params)=>{this.user.id=params['id']}`. implement on OnDestroy and then inside the component, call the hook ngOnDestroy() { this.paramSubscription.unsubscribe()}; i.e call the unsubscribe method.
+* **Passing Query Parameters and Fragments**: We use a new property called `[queryParams]="{allowEdit: '1'}"` //This will parse as ?allowEdit=1 and `fragment="loading"` which will parse as #loading in the url. We need the url to look like /servers/1/edit wherein 1 is the id. We can do this by passing the id in the onLoadMethod and then using the navigate method on route. So, this.route.navigate(['/servers',id,'edit'],{queryParams: {allowEdit: '1'}, fragment: 'loading' });
+* **Retreiving data from the queryparams**, we can use `this.route.snapshot.queryParams` and `this.route.snapshot.fragments` We can use this method or we could use the observables, `this.route.queryParams.subscribe()` and `this.route.fragment.subscribe()`, Angular removes these subscriptions on its own so we dont actually need to unsubscribe manually.
+* The urls are all strings. Always rememeber to convert ids to number by adding + in front.
+* **Setting up child nested routes**:  In the routing configuration after the path and components add another property children. It takes an array of the path and component of the components. In the path, the parents path is omitted, we only provide with what the childrens url part will be. Now add a `<route-outlet></route-outlet>` to the parent route html file.
+* In the navigate method, In the second parameters, alongside relativeTo we can also pass queryParamsHandling: 'preserve' OR 'merge' to preserve the queryparameters or merge them when changing page. 
+* In the route configuration, we can use wildcard along with redirectTo to route the unknown page requests. eg. `{path: '**', redirectTo: '/not-found'}`. Make sure this is at the end of all the routes else it would always route to this.
 
+* To put all routing configurations in one file, we make a file app-routing.module.ts in which we create a module eg.
+```js
+import { 'NgModule' } from '@angular/core';
+import { 'Routes','RouterModule' } from '@angular/router';
+
+//Define your const appRoutes:Routes = []; here inside the array 
+
+@NgModule({
+  imports: [RouterModule.forRoot(appRoutes)],
+  exports: [RouterModule]
+})
+export class AppRoutingModule{
+ 
+}
+```
+Add to the imports array in app.module.ts file AppRoutingModule.
+
+* **Routing Guards** Functionality, logic, code which are executed before the routers are loaded or once you want to leave a route. CanActivate is one such Guard. We make a service implement it and then use the method `canActivate(route: ActivatedRouteSnapshot, state: RouterStateSnapshot): Observable<boolean> | Promise<boolean> | boolean { };` These arguements (ActivatedRouteSnapshot and RouterStateSnapshot) are provided by the Angular before the routes are loaded. CanActivate can return an observable or promise or just a boolean. So CanActivate can work asynchronously or synchronously. Add CanActivate in the routing configuration and fill its array for the code that is to be used. We can also implement CanActivateChild and define a different method canActivateChild and in the routing configuration we add this to the children.
+To leave a route or not we can use canDeactivate. Create a service deactivateguard service and inside it export an interface(a contract which can be imported by some class which forces this class to provide some logic) below is what it looks like  
+```js
+import { Observable } from 'rjxs/Observable';
+import { CanDeactivate, ActivatedRouteSnapshot, RouterStateSnapshot } from '@angular/core';
+
+export interface CanComponentDeactivate {
+  canDeactivate: () => Observable<boolean> | Promise<boolean> | boolean;
+}
+
+export class CanDeactivateGuard implements CanDeactivate<CanComponentDeactivate> {
+  canDeactivate( component: CanComponentDeactivate,
+                 currentRoute: ActivatedRouteSnapshot,
+                 currentState: RouterStateSnapshot,
+                 nextState?: RouterStateSnapshot): Observable<boolean> | Promise<boolean> | boolean { return component.canDeactivate(); }
+}
+In the routing config file, add this property canDeactivate: [canDeactivateGuard] then provide it in the app.module.ts file
+```
