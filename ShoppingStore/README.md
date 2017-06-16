@@ -358,5 +358,7 @@ const appRoutes: Routes = [
   exports: [RouterModule]
 })
 export class AppRoutingModule{}
-
+//Add AppRoutingModule to imports array in app.module.ts
 ```
+* Add the links-> Go to header.component.html file and remove the links and the methods for click and add routerLink = '/recipes' or [routerLink] = "['/recipes']";
+* Add the active class by using routerLinkActive = 'className'
