@@ -362,3 +362,12 @@ export class AppRoutingModule{}
 ```
 * Add the links-> Go to header.component.html file and remove the links and the methods for click and add routerLink = '/recipes' or [routerLink] = "['/recipes']";
 * Add the active class by using routerLinkActive = 'className'
+
+**Adding Child Routes**
+
+* Add children array to recipe route config.
+* Add a componet recipe-starter. Config it for the children.
+* Add router-outlet in recipe.component.html
+* Remove the unwanted services and methods from the html and ts files of recipe-detail and recipe-list.
+* Add an ActivatedRoute in the constructor of the recipe-detail and then subscribe on it the method.
+* Go to recipe-item.component.html and add [routerLink] with current index of the array(note we just need a numerical value). Then add a property @Input() index: number in the recipe-item.component.ts file and then get it from one level up from recipe-list.component.html file. Add it to the loop and fetch the index from there, set up [index] from there and use it in recipe-item.component.html file for our [routerLink].
