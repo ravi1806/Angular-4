@@ -371,3 +371,9 @@ export class AppRoutingModule{}
 * Remove the unwanted services and methods from the html and ts files of recipe-detail and recipe-list.
 * Add an ActivatedRoute in the constructor of the recipe-detail and then subscribe on it the method.
 * Go to recipe-item.component.html and add [routerLink] with current index of the array(note we just need a numerical value). Then add a property @Input() index: number in the recipe-item.component.ts file and then get it from one level up from recipe-list.component.html file. Add it to the loop and fetch the index from there, set up [index] from there and use it in recipe-item.component.html file for our [routerLink].
+
+`this.router.navigate(['../', this.id, 'edit'], {relativeTo: this.route});` the first parameter is how many levels up u want to go, next parameter is the id parameter and the next is edit.. so it will show as recipes/1/edit. We go up one level because we want to add 1 before edit. the relativeto path is to the current route(ActivatedRoute) here.
+
+* If we change the route from within the same component, the component wont destroy so it wont change any data that we took using snapshot method. We need to subscribe on it to change the data within the component.
+eg.
+`this.activatedRoute.snapshot.url` or `this.activatedRoute.snapshot.data` or `this.activatedRoute.snapshot.params` wont work in such cases we need to subscribe them `this.activatedRoute.params.subscribe`.
